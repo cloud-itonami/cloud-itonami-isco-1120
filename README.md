@@ -44,6 +44,34 @@ Resolves via [`kotoba-lang/occupation`](https://github.com/kotoba-lang/occupatio
 See [`docs/business-model.md`](docs/business-model.md) and
 [`docs/operator-guide.md`](docs/operator-guide.md).
 
+## Reference implementation
+
+`src/exec_practice/{store,governor}.cljc` is a minimal but real
+implementation of the Core Contract above (pure cljc, no external deps):
+
+- `exec-practice.store` — `Store` protocol + `MemStore`: engagements
+  (with a per-engagement `spending-limit`), decisions, spending-approval
+  events. A decision/spending-approval can only be recorded against a
+  registered engagement (engagement provenance).
+- `exec-practice.governor` — `ExecPracticeGovernor`: `assess` gates a
+  proposal against the engagement env. Hard invariants force `:hold` (no
+  engagement, direct-write instead of `:propose`, or a spending-approval
+  over the engagement's `spending-limit` below `:high` safety-class); a
+  spending-approval over the limit always requires `:high`+ safety-class
+  and thus `:human-approval` — it can never be auto-approved;
+  low-confidence proposals also escalate.
+
+```bash
+clojure -M:test   # 8 tests, 13 assertions, green
+```
+
+This is what backs this repo's `:maturity :implemented` entry in
+[`kotoba-lang/occupation`](https://github.com/kotoba-lang/occupation) —
+the 16th `cloud-itonami-isco-*` occupation to reach that tier, after
+`cloud-itonami-isco-6112`, `-2221`, `-7126`, `-4321`, `-9312`, `-5322`,
+`-8332`, `-1321`, `-3253`, `-6210`, `-5223`, `-7231`, `-8121`, `-9111`
+and `-2512` (ADR-2607012000).
+
 ## License
 
 AGPL-3.0-or-later.
