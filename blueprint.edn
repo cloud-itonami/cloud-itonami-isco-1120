@@ -1,0 +1,10 @@
+{:itonami.blueprint/id "cloud-itonami-isco-1120"
+ :itonami.blueprint/name "Independent Small-Business Executive Practice"
+ :itonami.blueprint/isco-08 "1120"
+ :itonami.blueprint/domain :management/small-business-executive
+ :itonami.blueprint/license "AGPL-3.0-or-later"
+ :itonami.blueprint/social-impact [:local-jobs :accountability :small-business-viability]
+ :itonami.blueprint/governor :executive-governor
+ :itonami.blueprint/robotics true
+ :itonami.blueprint/required-technologies [:robotics :identity :dmn :bpmn :audit-ledger]
+ :itonami.blueprint/status :public-oss}
