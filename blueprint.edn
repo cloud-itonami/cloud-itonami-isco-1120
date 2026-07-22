@@ -7,4 +7,5 @@
  :itonami.blueprint/governor :executive-governor
  :itonami.blueprint/robotics true
  :itonami.blueprint/required-technologies [:robotics :identity :dmn :bpmn :audit-ledger]
- :itonami.blueprint/status :public-oss}
+ :itonami.blueprint/status :public-oss
+ :itonami.blueprint/maturity :blueprint}
