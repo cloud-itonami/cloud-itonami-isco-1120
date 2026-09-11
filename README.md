@@ -62,7 +62,7 @@ implementation of the Core Contract above (pure cljc, no external deps):
   low-confidence proposals also escalate.
 
 ```bash
-clojure -M:test   # 8 tests, 13 assertions, green
+kbb -M:test   # 8 tests, 13 assertions, green
 ```
 
 This repo's own `blueprint.edn` currently declares `:itonami.blueprint/maturity
