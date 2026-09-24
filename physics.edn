@@ -1,0 +1,33 @@
+;; What this vertical's robot physically does, declared for
+;; kotoba.robotics.process (kotoba-lang/robotics). `kbb -M:physics` runs it.
+;;
+;; README "Robotics premise": a site-monitoring robot performs walkthrough
+;; checks and compliance evidence capture across the operator's small-business
+;; sites (ISCO 1120 managing directors and chief executives). Its physical
+;; work is driving the walkthrough loop of a site and raising its camera arm
+;; to photograph fire-extinguisher tags and shelf-load notices up high.
+;;
+;; Every number without a cited source is marked `estimate` in its :basis.
+;; Replacing an estimate with a sourced value is this bot's growth work.
+{:physics/schema "itonami.physical-ai.spec.v1"
+ :repo "cloud-itonami/cloud-itonami-isco-1120"
+ :cases
+ [{:id :site-walkthrough-loop
+   :kind :transport
+   :procedure "monitoring robot drives the 400 m compliance walkthrough loop of a small warehouse-and-shop site; cruise speed swept"
+   :params {:mass-kg 30.0 :payload-kg 4.0 :distance-m 400.0 :a-max-mps2 0.5
+            :brake-decel-mps2 0.8 :drive-force-n 60.0 :crr 0.015
+            :cog-height-m 0.60 :support-half-length-m 0.22 :max-time-s 1800.0}
+   :sweep {:param :v-max-mps :values [0.4 0.6 0.8 1.0 1.4]}
+   :quantity :cycle-time-s
+   :limit {:max 600.0 :basis "estimate: one walkthrough per site inside a 10-minute slot so all sites are checked before opening"}
+   :boundary {:lo 0.2 :hi 1.4}}
+  {:id :tag-photo-arm-raise
+   :kind :manipulator
+   :procedure "camera arm on the robot rises from its stowed pose to photograph an inspection tag 1.4 m above the base; camera-and-light kit mass swept"
+   :params {:l1-m 0.80 :l2-m 0.70 :m1-kg 3.0 :m2-kg 2.2
+            :from [0.40 0.10] :to [0.25 1.40] :duration-s 2.0 :steps 400}
+   :sweep {:param :payload-kg :values [0.3 0.6 1.0 1.5 2.5]}
+   :quantity :peak-tau1-nm
+   :limit {:max 45.0 :basis "estimate: rated shoulder torque of the lightweight mast arm on a 30 kg monitoring robot"}
+   :boundary {:lo 0.1 :hi 8.0}}]}
